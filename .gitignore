@@ -41,3 +41,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#dart files
+D:\FLUTTER DEVELOPMENT\PROJECTS\chat_app\lib\services\fcm_service.dart
