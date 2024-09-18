@@ -18,16 +18,34 @@ class MyDrawer extends StatelessWidget {
       child: Column(
         children: [
           //logo
-          DrawerHeader(
-            
+
+          Container(
+            height: 200,
+            padding: const EdgeInsets.only(top: 25),
             child: Center(
-              child: Icon(
-                Icons.message,
-                color: Theme.of(context).colorScheme.primary,
-                size: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // content of header
+                  Icon(
+                    Icons.message,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 40,
+                  ),
+                ],
               ),
             ),
           ),
+          // DrawerHeader(
+
+          //   child: Center(
+          //     child: Icon(
+          //       Icons.message,
+          //       color: Theme.of(context).colorScheme.primary,
+          //       size: 40,
+          //     ),
+          //   ),
+          // ),
 
           //home list tile
 
