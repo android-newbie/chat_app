@@ -1,4 +1,5 @@
 import 'package:chat_app/model/message.dart';
+import 'package:chat_app/services/fcm_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ class ChatService extends ChangeNotifier {
   //get instance of firestore and auth
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FCMService _fcmService = FCMService();
 
   //get user stream
   Stream<List<Map<String, dynamic>>> getUsersStream() {
@@ -75,6 +77,20 @@ class ChatService extends ChangeNotifier {
         .doc(chatRoomID)
         .collection("messages")
         .add(newMessage.toMap());
+
+
+         // Fetch the receiver's FCM token from Firestore
+    DocumentSnapshot receiverSnapshot = await _firestore
+        .collection('Users')
+        .doc(recieverID)
+        .get();
+
+    String? fcmToken = receiverSnapshot['fcmToken'];
+
+    // Send notification if the receiver has a valid FCM token
+    if (fcmToken != null) {
+      await _fcmService.sendPushNotification(fcmToken, message, currentUserEmail);
+    }
   }
 
   //get messages
